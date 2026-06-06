@@ -106,7 +106,11 @@ export default function MentalWellnessTracker() {
 
   if (!isHydrated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-400 text-xs">
+      <div
+        className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-400 text-xs"
+        role="status"
+        aria-live="polite"
+      >
         <span className="animate-pulse">Loading MindSpace...</span>
       </div>
     );
@@ -121,7 +125,6 @@ export default function MentalWellnessTracker() {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-slate-50/50">
-      
       {/* Sidebar - Desktop */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r border-slate-200/80 p-6 space-y-8 fixed h-full">
         {/* Branding header */}
@@ -130,19 +133,25 @@ export default function MentalWellnessTracker() {
             🌿
           </div>
           <div>
-            <h2 className="font-black text-slate-800 tracking-tight text-base">MindSpace</h2>
-            <p className="text-[10px] text-slate-450 font-bold uppercase tracking-wider">{exam} Warrior</p>
+            <h2 className="font-black text-slate-800 tracking-tight text-base">
+              MindSpace
+            </h2>
+            <p className="text-[10px] text-slate-450 font-bold uppercase tracking-wider">
+              {exam} Warrior
+            </p>
           </div>
         </div>
 
         {/* Sidebar Nav */}
-        <nav className="flex-1 space-y-1">
+        <nav className="flex-1 space-y-1" aria-label="Primary navigation">
           {NAV_ITEMS.map((item) => {
             const isActive = tab === item.id;
             return (
               <button
                 key={item.id}
                 type="button"
+                aria-label={item.label}
+                aria-current={isActive ? "page" : undefined}
                 onClick={() => setTab(item.id)}
                 className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
                   isActive
@@ -164,19 +173,22 @@ export default function MentalWellnessTracker() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-slate-700 truncate">{name}</p>
-            <p className="text-[10px] text-slate-400 truncate">Streak: {streak} days</p>
+            <p className="text-[10px] text-slate-400 truncate">
+              Streak: {streak} days
+            </p>
           </div>
         </div>
       </aside>
 
       {/* Main content wrapper */}
       <div className="flex-1 md:pl-64 flex flex-col pb-24 md:pb-8">
-        
         {/* Mobile top bar header */}
         <header className="flex md:hidden items-center justify-between bg-white border-b border-slate-200/80 p-4 sticky top-0 z-50">
           <div className="flex items-center gap-2">
             <span className="text-xl">🌿</span>
-            <h1 className="font-extrabold text-slate-800 text-sm tracking-tight">MindSpace</h1>
+            <h1 className="font-extrabold text-slate-800 text-sm tracking-tight">
+              MindSpace
+            </h1>
           </div>
           <div className="flex items-center gap-2 text-xs font-bold text-slate-650 bg-slate-50 border border-slate-200 px-3 py-1 rounded-xl">
             🔥 {streak}
@@ -228,25 +240,31 @@ export default function MentalWellnessTracker() {
       </div>
 
       {/* Mobile bottom bar navigator */}
-      <nav className="flex md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200/80 z-50 overflow-x-auto px-2 py-1 justify-between shadow-lg">
+      <nav
+        className="flex md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200/80 z-50 overflow-x-auto px-2 py-1 justify-between shadow-lg"
+        aria-label="Mobile navigation"
+      >
         {NAV_ITEMS.map((item) => {
           const isActive = tab === item.id;
           return (
             <button
               key={item.id}
               type="button"
+              aria-label={item.label}
+              aria-current={isActive ? "page" : undefined}
               onClick={() => setTab(item.id)}
               className={`flex-1 min-w-[64px] flex flex-col items-center justify-center py-2.5 rounded-xl cursor-pointer ${
                 isActive ? "text-indigo-600 font-black" : "text-slate-400"
               }`}
             >
               <span className="text-lg mb-1">{item.icon}</span>
-              <span className="text-[9px] truncate tracking-tight">{item.label}</span>
+              <span className="text-[9px] truncate tracking-tight">
+                {item.label}
+              </span>
             </button>
           );
         })}
       </nav>
-      
     </div>
   );
 }
