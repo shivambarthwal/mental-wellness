@@ -2,11 +2,11 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Settings from "../Settings";
 
-const exportData = vi.fn();
-const importData = vi.fn();
-const clearAllData = vi.fn();
+const exportData = jest.fn();
+const importData = jest.fn();
+const clearAllData = jest.fn();
 
-vi.mock("../../lib/storage", () => ({
+jest.mock("../../lib/storage", () => ({
   exportData,
   importData,
   clearAllData,
@@ -19,8 +19,8 @@ describe("Settings component", () => {
         name="Ravi"
         exam="JEE"
         storageStats={{ totalEntries: 5, checkIns: 3, journalEntries: 2 }}
-        onResetProfile={vi.fn()}
-        onUpdateStorage={vi.fn()}
+        onResetProfile={jest.fn()}
+        onUpdateStorage={jest.fn()}
       />,
     );
 
@@ -42,8 +42,8 @@ describe("Settings component", () => {
         name="Ravi"
         exam="JEE"
         storageStats={{ totalEntries: 5, checkIns: 3, journalEntries: 2 }}
-        onResetProfile={vi.fn()}
-        onUpdateStorage={vi.fn()}
+        onResetProfile={jest.fn()}
+        onUpdateStorage={jest.fn()}
       />,
     );
 
@@ -53,7 +53,7 @@ describe("Settings component", () => {
 
   it("calls reset profile when edit profile button is clicked", async () => {
     const user = userEvent.setup();
-    const onResetProfile = vi.fn();
+    const onResetProfile = jest.fn();
 
     render(
       <Settings
@@ -61,7 +61,7 @@ describe("Settings component", () => {
         exam="JEE"
         storageStats={{ totalEntries: 5, checkIns: 3, journalEntries: 2 }}
         onResetProfile={onResetProfile}
-        onUpdateStorage={vi.fn()}
+        onUpdateStorage={jest.fn()}
       />,
     );
 

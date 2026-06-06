@@ -2,14 +2,14 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Onboarding from "../Onboarding";
 
-vi.mock("../../lib/storage", () => ({
-  saveUserProfile: vi.fn(),
-  saveExamDate: vi.fn(),
+jest.mock("../../lib/storage", () => ({
+  saveUserProfile: jest.fn(),
+  saveExamDate: jest.fn(),
 }));
 
 describe("Onboarding component", () => {
   it("renders the welcome heading and input fields", () => {
-    render(<Onboarding onComplete={vi.fn()} />);
+    render(<Onboarding onComplete={jest.fn()} />);
 
     expect(
       screen.getByRole("heading", { name: /welcome to mindspace/i }),
@@ -23,7 +23,7 @@ describe("Onboarding component", () => {
 
   it("calls onComplete with name and exam after valid submit", async () => {
     const user = userEvent.setup();
-    const onComplete = vi.fn();
+    const onComplete = jest.fn();
 
     render(<Onboarding onComplete={onComplete} />);
 
